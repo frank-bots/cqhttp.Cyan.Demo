@@ -1,0 +1,19 @@
+version: "3.5"
+services:
+    go-cqhttp:
+        image: frankli0324/go-cqhttp
+        volumes:
+            - ./go-cqhttp:/opt
+        command: faststart
+
+    bot:
+        build: .
+        depends_on:
+            - go-cqhttp
+        restart: always
+        volumes:
+            - ./bot:/opt
+        environment:
+            - access_url=ws://mirai:6700/api
+            - event_url=ws://mirai:6700/event
+            - access_token=302178580f001e14884538a395804f5c
